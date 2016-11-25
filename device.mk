@@ -256,3 +256,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf
+
+# VR packages
+PRODUCT_PACKAGES += \
+    vr.marlin
+

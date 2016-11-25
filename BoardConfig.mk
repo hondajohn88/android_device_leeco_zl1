@@ -146,6 +146,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+BOARD_USES_ADRENO := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)

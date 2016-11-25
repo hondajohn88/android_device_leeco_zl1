@@ -47,7 +47,8 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := kryo
+#TODO: add kryo support? TARGET_CPU_VARIANT := kryo
+TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
@@ -59,6 +60,8 @@ ENABLE_CPUSETS := true
 
 TARGET_USES_64_BIT_BINDER := true
 
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
 BOARD_KERNEL_BASE := 0x80000000
@@ -69,8 +72,8 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/leeco/msm8996
-TARGET_KERNEL_CONFIG := msm-perf_defconfig
+TARGET_KERNEL_SOURCE := kernel/leeco/zl1
+TARGET_KERNEL_CONFIG := zl1_defconfig
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 # QCOM hardware
@@ -143,6 +146,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+BOARD_USES_ADRENO := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)

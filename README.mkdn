@@ -1,1 +1,16 @@
-Based on some Xiaomi files, Oneplus3 files and trial and errors.  More errors than not.
+Device configuration for LeEco Le Pro3 (ZL1).
+==================================================
+
+Basic   | Spec Sheet
+-------:|:-------------------------
+CPU     | Dual-core 2.35 GHz Kryo and dual-core 2.0 GHz Kryo
+CHIPSET | Qualcomm MSM8996 Snapdragon 821
+GPU     | Adreno 530
+Memory  | 32/64 GB, 4 GB RAM or 64/128 GB, 6 GB RAM
+Shipped Android Version | 6.0
+Storage | 32GB/64GB/128
+Battery | 4070 mAh
+Display | 1080 x 1920 pixels, 5.5"  (~403 ppi pixel density)
+Rear Camera  | 16 MP, 4128 x 3096 pixels, autofocus, dual-LED (dual tone) flash
+Front Camera | 8.0 MP
+Release Date | September, 2016

@@ -42,6 +42,8 @@ $(LOCAL_BUILT_MODULE): WCNSS_INI_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_
 $(LOCAL_BUILT_MODULE): ACTUAL_MAC_FILE := /persist/wlan_mac.bin
 $(LOCAL_BUILT_MODULE): WCNSS_MAC_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/wlan_mac.bin
 
+$(LOCAL_BUILT_MODULE): MSADP_DEST := /dev/block/bootdevice/by-name/msadp
+$(LOCAL_BUILT_MODULE): MSADP_SYMLINK := $(TARGET_OUT)/etc/firmware/msadp
 
 $(LOCAL_BUILT_MODULE): $(LOCAL_PATH)/Android.mk
 $(LOCAL_BUILT_MODULE):
@@ -53,7 +55,10 @@ $(LOCAL_BUILT_MODULE):
 	$(hide) ln -sf $(ACTUAL_INI_FILE) $(WCNSS_INI_SYMLINK)
 	$(hide) rm -rf $(WCNSS_MAC_SYMLINK)
 	$(hide) ln -sf $(ACTUAL_MAC_FILE) $(WCNSS_MAC_SYMLINK)
+	$(hide) rm -rf $(MSADP_SYMLINK)
+	$(hide) ln -sf $(MSADP_DEST) $(MSADP_SYMLINK)
 	$(hide) touch $@
+
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
@@ -68,4 +73,4 @@ $(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(IMS_SYMLINKS)
 
-include device/leeco/zl1/tftp.mk
+include device/leeco/le_zl1/tftp.mk

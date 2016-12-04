@@ -21,14 +21,14 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Inherit from kenzo device
-$(call inherit-product, device/leeco/zl1/device.mk)
+# Inherit from le_zl1 device
+$(call inherit-product, device/leeco/le_zl1/device.mk)
 
 # Set those variables here to overwrite the inherited values.
 BOARD_VENDOR := LeEco
 PRODUCT_BRAND := LeEco
-PRODUCT_DEVICE := zl1
-PRODUCT_NAME := cm_zl1
+PRODUCT_DEVICE := le_zl1
+PRODUCT_NAME := cm_le_zl1
 PRODUCT_MANUFACTURER := LeMobile
 PRODUCT_MODEL := LEX727
 TARGET_VENDOR := LeEco

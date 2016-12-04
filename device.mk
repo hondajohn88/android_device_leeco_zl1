@@ -17,7 +17,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product-if-exists, vendor/leeco/zl1/zl1-vendor.mk)
+$(call inherit-product-if-exists, vendor/leeco/le_zl1/le_zl1-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8996 \
+    audio.primary.msm8996-caf \
     audio.r_submix.default \
     audio.usb.default \
     libqcompostprocbundle \
@@ -104,10 +104,10 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    copybit.msm8996 \
-    gralloc.msm8996 \
-    hwcomposer.msm8996 \
-    memtrack.msm8996 \
+    copybit.msm8996-caf \
+    gralloc.msm8996-caf \
+    hwcomposer.msm8996-caf \
+    memtrack.msm8996-caf \
     liboverlay
 
 # Fingerprint
@@ -129,7 +129,7 @@ PRODUCT_PACKAGES += \
     xtwifi.conf
 
 PRODUCT_PACKAGES += \
-    gps.msm8996
+    gps.msm8996-caf
 
 # IPACM
 PRODUCT_PACKAGES += \
@@ -153,11 +153,11 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    keystore.msm8996
+    keystore.msm8996-caf
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.msm8996
+    lights.msm8996-caf
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -185,7 +185,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.msm8996
+    power.msm8996-caf
 
 # Qualcomm dependencies
 PRODUCT_PACKAGES += \
@@ -210,7 +210,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
 
 PRODUCT_PACKAGES += \
-    sensors.msm8996
+    sensors.msm8996-caf
 
 # Snapdragon Camera
 PRODUCT_PACKAGES += \

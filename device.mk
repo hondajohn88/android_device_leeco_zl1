@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get non-open-source specific aspects
@@ -74,7 +76,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8996-caf \
+    audio.primary.msm8996 \
     audio.r_submix.default \
     audio.usb.default \
     libqcompostprocbundle \
@@ -104,10 +106,10 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    copybit.msm8996-caf \
-    gralloc.msm8996-caf \
-    hwcomposer.msm8996-caf \
-    memtrack.msm8996-caf \
+    copybit.msm8996 \
+    gralloc.msm8996 \
+    hwcomposer.msm8996 \
+    memtrack.msm8996 \
     liboverlay
 
 # Fingerprint
@@ -129,7 +131,11 @@ PRODUCT_PACKAGES += \
     xtwifi.conf
 
 PRODUCT_PACKAGES += \
-    gps.msm8996-caf
+    gps.msm8996
+
+# Init
+INIT += init.qcom.debug.sh
+
 
 # IPACM
 PRODUCT_PACKAGES += \
@@ -153,11 +159,11 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    keystore.msm8996-caf
+    keystore.msm8996
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.msm8996-caf
+    lights.msm8996
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -169,6 +175,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+PRODUCT_PACKAGES += \
+    libdivxdrmdecrypt \
+    libOmxVidcCommon \
+    libstagefright_soft_flacenc
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -185,12 +196,19 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.msm8996-caf
+    power.msm8996
 
 # Qualcomm dependencies
 PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
+
+# QC AV Enhancements
+PRODUCT_PACKAGES += \
+    libdashplayer \
+    libqcmediaplayer \
+    qcmediaplayer \
+    libextmedia_jni
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -206,11 +224,16 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
-    $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml
 
 PRODUCT_PACKAGES += \
-    sensors.msm8996-caf
+    sensors.msm8996
 
 # Snapdragon Camera
 PRODUCT_PACKAGES += \

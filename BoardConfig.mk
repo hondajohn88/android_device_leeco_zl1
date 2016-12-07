@@ -1,4 +1,4 @@
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2010 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,18 +13,18 @@
 # limitations under the License.
 
 #
-# This file sets variables that control the way modules are built
-# thorughout the system. It should not be used to conditionally
-# disable makefiles (the proper mechanism to control what gets
-# included in a build is to use PRODUCT_PACKAGES in a product
-# definition file).
+# This file is the build configuration for a full Android
+# build for grouper hardware. This cleanly combines a set of
+# device-specific aspects (drivers) with a device-agnostic
+# product configuration (apps).
 #
+-include vendor/leeco/le_zl1/BoardConfigVendor.mk
 
 BOARD_PATH := device/leeco/le_zl1
 BOARD_VENDOR := leeco
 
 TARGET_NO_BOOTLOADER := true
-TARGET_OTA_ASSERT_DEVICE := LE_ZL1,le_zl1
+TARGET_OTA_ASSERT_DEVICE := le_zl1
 TARGET_BOOTLOADER_BOARD_NAME := msm8996
 
 # Platform
@@ -76,7 +76,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # Display
 BOARD_USES_ADRENO := true
-TARGET_QCOM_DISPLAY_VARIANT := caf-msm8996
+TARGET_QCOM_DISPLAY_VARIANT := msm8996
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
@@ -91,8 +91,8 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 # Audio/media
-TARGET_QCOM_AUDIO_VARIANT := caf-msm8996
-TARGET_QCOM_MEDIA_VARIANT := caf-msm8996
+TARGET_QCOM_AUDIO_VARIANT := msm8996
+TARGET_QCOM_MEDIA_VARIANT := msm8996
 
 # audio
 #AUDIO_FEATURE_ENABLED_AAC_ADTS_OFFLOAD := true
@@ -136,7 +136,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(BOARD_PATH)/bluetooth
 BOARD_HAS_QCA_BT_ROME := true
 QCOM_BT_USE_BTNV := true
-TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8996
+TARGET_QCOM_BLUETOOTH_VARIANT := msm8996
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
@@ -177,7 +177,7 @@ BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
-TARGET_CRYPTFS_HW_PATH := device/qcom/common/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := $(BOARD_PATH)/cryptfs_hw
 
 # Increase coldboot timeout
 TARGET_INCREASES_COLDBOOT_TIMEOUT := true
@@ -185,6 +185,9 @@ TARGET_INCREASES_COLDBOOT_TIMEOUT := true
 # CNE and DPM
 TARGET_LDPRELOAD := libNimsWrap.so
 BOARD_USES_QCNE := true
+
+# Legacy Blobs
+TARGET_NEEDS_TEXT_RELOCATIONS := true
 
 # selinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -195,12 +198,12 @@ BOARD_SECCOMP_POLICY += $(BOARD_PATH)/seccomp
 
 WITH_DEXPREOPT := false
 
-# Recovery
-TARGET_RECOVERY_FSTAB := $(BOARD_PATH)/rootdir/etc/fstab.qcom
-TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
-TARGET_RELEASETOOLS_EXTENSIONS := device/qcom/common
+# Recovery:Start
+TARGET_RECOVERY_FSTAB := $(BOARD_PATH)/configs/fstab.qcom
+TW_THEME := portrait_hdpi
 BOARD_HAS_NO_REAL_SDCARD := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_DEFAULT_LANGUAGE := en-US
+TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_CRYPTO := true

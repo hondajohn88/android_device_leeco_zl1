@@ -25,42 +25,35 @@
 
 LOCAL_PATH := $(call my-dir)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := wifi_symlinks
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := FAKE
-LOCAL_MODULE_SUFFIX := -timestamp
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): ACTUAL_INI_FILE := /system/etc/wifi/WCNSS_qcom_cfg.ini
-$(LOCAL_BUILT_MODULE): WCNSS_INI_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
-
-$(LOCAL_BUILT_MODULE): ACTUAL_MAC_FILE := /persist/wlan_mac.bin
-$(LOCAL_BUILT_MODULE): WCNSS_MAC_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/wlan_mac.bin
-
-$(LOCAL_BUILT_MODULE): MSADP_DEST := /dev/block/bootdevice/by-name/msadp
-$(LOCAL_BUILT_MODULE): MSADP_SYMLINK := $(TARGET_OUT)/etc/firmware/msadp
-
-$(LOCAL_BUILT_MODULE): $(LOCAL_PATH)/Android.mk
-$(LOCAL_BUILT_MODULE):
-	$(hide) echo "Making symlinks for wifi"
-	$(hide) mkdir -p $(dir $@)
-	$(hide) mkdir -p $(dir $(WCNSS_INI_SYMLINK))
-	$(hide) rm -rf $@
-	$(hide) rm -rf $(WCNSS_INI_SYMLINK)
-	$(hide) ln -sf $(ACTUAL_INI_FILE) $(WCNSS_INI_SYMLINK)
-	$(hide) rm -rf $(WCNSS_MAC_SYMLINK)
-	$(hide) ln -sf $(ACTUAL_MAC_FILE) $(WCNSS_MAC_SYMLINK)
-	$(hide) rm -rf $(MSADP_SYMLINK)
-	$(hide) ln -sf $(MSADP_DEST) $(MSADP_SYMLINK)
-	$(hide) touch $@
-
+ifeq ($(TARGET_DEVICE),le_zl1)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
+
+MSADP_DEST := /dev/block/bootdevice/by-name/msadp
+MSADP_SYMLINK := $(TARGET_OUT)/etc/firmware/msadp
+
+$(shell ln -sf $(MSADP_DEST) $(MSADP_SYMLINK))
+
+ACTUAL_INI_FILE := /system/etc/wifi/WCNSS_qcom_cfg.ini
+WCNSS_INI_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+
+ACTUAL_MAC_FILE := /persist/wlan_mac.bin
+WCNSS_MAC_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/wlan_mac.bin
+
+$(shell mkdir -p $(TARGET_OUT)/etc/firmware/wlan/qca_cld/; \
+    ln -sf $(ACTUAL_INI_FILE) \
+            $(WCNSS_INI_SYMLINK))
+
+$(shell mkdir -p $(TARGET_OUT)/etc/firmware/wlan/qca_cld/; \
+    ln -sf $(ACTUAL_MAC_FILE) \
+            $(WCNSS_MAC_SYMLINK))
+
+ACTUAL_BT_FILE := /bt_firmware/image/btfw32.tlv
+BT_SYMLINK := $(TARGET_OUT)/vendor/firmware/btfw32.tlv
+
+$(shell mkdir -p $(TARGET_OUT)/vendor/firmware/; \
+    ln -sf $(ACTUAL_BT_FILE) \
+            $(BT_SYMLINK))
 
 IMS_LIBS := libimscamera_jni.so libimsmedia_jni.so
 
@@ -73,4 +66,12 @@ $(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(IMS_SYMLINKS)
 
+# Create links for audcal data files
+$(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wcd9320; \
+    ln -sf /data/misc/audio/wcd9320_anc.bin \
+    $(TARGET_OUT_ETC)/firmware/wcd9320/wcd9320_anc.bin; \
+    ln -sf /data/misc/audio/mbhc.bin \
+    $(TARGET_OUT_ETC)/firmware/wcd9320/wcd9320_mbhc.bin)
+
 include device/leeco/le_zl1/tftp.mk
+endif

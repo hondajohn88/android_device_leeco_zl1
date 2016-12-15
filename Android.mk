@@ -29,11 +29,6 @@ ifeq ($(TARGET_DEVICE),le_zl1)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-MSADP_DEST := /dev/block/bootdevice/by-name/msadp
-MSADP_SYMLINK := $(TARGET_OUT)/etc/firmware/msadp
-
-$(shell ln -sf $(MSADP_DEST) $(MSADP_SYMLINK))
-
 ACTUAL_INI_FILE := /system/etc/wifi/WCNSS_qcom_cfg.ini
 WCNSS_INI_SYMLINK := $(TARGET_OUT)/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 
